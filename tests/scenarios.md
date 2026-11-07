@@ -24,3 +24,12 @@ Fixtures used in v0.1.0 (rebuild them when re-running):
 Script tests: `python -m unittest discover -s tests -v`. `test_post_review.py` failed on the old
 `(Questions|Not reviewed)` split, where the last finding swallowed `## Not checked`, and passes
 with the fix.
+
+## Known exceptions and open items (v0.1.0)
+
+- `reviewing-pull-requests` keeps its original description ("Fast CodeRabbit/Codex-style review…")
+  and its source-repo mentions in `references/hunt-patterns.md`. It is frozen outside evaluation
+  rounds, so the "Use when" description rule applies at its next round.
+- `post_review.py` defects found by the PR #1 review, present in the original script and held for
+  the owner: `gh api --paginate` without `--slurp` breaks on PRs with more than 30 files, and
+  `diff_lines` counts `\ No newline at end of file` rows as lines, shifting anchors.
