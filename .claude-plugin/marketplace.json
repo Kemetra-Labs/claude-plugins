@@ -1,0 +1,12 @@
+{
+  "name": "kemetra",
+  "owner": { "name": "Kemetra Labs" },
+  "description": "Cross-project Claude Code skills for Kemetra repositories",
+  "plugins": [
+    {
+      "name": "kemetra-dev",
+      "source": "./plugins/kemetra-dev",
+      "description": "Pull request review, review-thread triage, independent external review, and safe git/PR mechanics"
+    }
+  ]
+}
