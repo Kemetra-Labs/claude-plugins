@@ -1,0 +1,8 @@
+{
+  "name": "kemetra-dev",
+  "version": "0.1.0",
+  "description": "Pull request review, review-thread triage, independent external review, and safe git/PR mechanics for Kemetra repositories",
+  "author": { "name": "Kemetra Labs" },
+  "repository": "https://github.com/Kemetra-Labs/claude-plugins",
+  "license": "MIT"
+}
