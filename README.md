@@ -19,6 +19,12 @@ Marketplace name: **`kemetra`**.
 The skills are thin overlays: each names the official skill it builds on and adds only what that
 skill lacks. A repository's own rules (`CLAUDE.md`) always win over a skill.
 
+## Requires
+
+The overlays point at skills from the official marketplace (`claude-plugins-official`, known to
+Claude Code by default): `superpowers@claude-plugins-official` and
+`code-review@claude-plugins-official`. Enable them too, in the same `enabledPlugins` block.
+
 ## Enable it in a repository (recommended for teams)
 
 Commit this to the repository's `.claude/settings.json`:
@@ -28,7 +34,11 @@ Commit this to the repository's `.claude/settings.json`:
   "extraKnownMarketplaces": {
     "kemetra": { "source": { "source": "github", "repo": "Kemetra-Labs/claude-plugins" } }
   },
-  "enabledPlugins": { "kemetra-dev@kemetra": true }
+  "enabledPlugins": {
+    "kemetra-dev@kemetra": true,
+    "superpowers@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true
+  }
 }
 ```
 
