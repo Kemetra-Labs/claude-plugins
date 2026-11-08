@@ -30,6 +30,7 @@ with the fix.
 - `reviewing-pull-requests` keeps its original description ("Fast CodeRabbit/Codex-style review…")
   and its source-repo mentions in `references/hunt-patterns.md`. It is frozen outside evaluation
   rounds, so the "Use when" description rule applies at its next round.
-- `post_review.py` defects found by the PR #1 review, present in the original script and held for
-  the owner: `gh api --paginate` without `--slurp` breaks on PRs with more than 30 files, and
-  `diff_lines` counts `\ No newline at end of file` rows as lines, shifting anchors.
+- `post_review.py` defects found by the PR #1 review (pagination on PRs over 30 files; the
+  `\ No newline at end of file` marker shifting anchors) were fixed in v0.1.1 by owner decision
+  2026-11-08, as an exception to the evaluation-round freeze. `DiffLinesTest` failed before the fix
+  and passes after it.

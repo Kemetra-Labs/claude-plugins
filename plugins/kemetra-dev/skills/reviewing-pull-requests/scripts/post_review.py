@@ -30,9 +30,21 @@ def gh(*args: str, stdin: str | None = None) -> str:
     return result.stdout
 
 
+def json_pages(text: str) -> list:
+    """Merge `gh api --paginate` output, which prints one JSON array per page back to back."""
+    decoder, items, pos = json.JSONDecoder(), [], 0
+    while True:
+        while pos < len(text) and text[pos].isspace():
+            pos += 1
+        if pos >= len(text):
+            return items
+        page, pos = decoder.raw_decode(text, pos)
+        items.extend(page)
+
+
 def diff_lines(repo: str, pr: int) -> dict[str, set[int]]:
     """Right-side line numbers present in the PR diff, per file."""
-    files = json.loads(gh("api", f"repos/{repo}/pulls/{pr}/files", "--paginate"))
+    files = json_pages(gh("api", f"repos/{repo}/pulls/{pr}/files?per_page=100", "--paginate"))
     commentable: dict[str, set[int]] = {}
     for f in files:
         lines, new = set(), 0
@@ -41,7 +53,7 @@ def diff_lines(repo: str, pr: int) -> dict[str, set[int]]:
             if hunk:
                 new = int(hunk.group(1))
                 continue
-            if row.startswith("-"):
+            if row.startswith(("-", "\\")):  # removed line, or "\ No newline at end of file"
                 continue
             lines.add(new)
             new += 1
